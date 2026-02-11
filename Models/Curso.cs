@@ -19,5 +19,5 @@ namespace GestiondeCursos.Models
 
         // Relación: un curso tiene muchas inscripciones
         public ICollection<Inscripcion>? Inscripciones { get; set; }
-    }
+    } 
 }

@@ -15,6 +15,7 @@ namespace GestiondeCursos.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Mensaje = "Estoy probando cambios en Git";
             return View();
         }
 
