@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using GestiondeCursos.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<GestiondeCursosContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GestiondeCursosContext") ?? throw new InvalidOperationException("Connection string 'GestiondeCursosContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
