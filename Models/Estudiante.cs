@@ -6,7 +6,7 @@ namespace GestiondeCursos.Models
     public class Estudiante
     {
         public int Id { get; set; }
-
+        // Validación: Evita nombres vacíos y limita la longitud para optimizar la BD
         [Required(ErrorMessage = "El nombre es obligatorio")]
         [StringLength(50)]
         public string Nombre { get; set; }
@@ -15,6 +15,7 @@ namespace GestiondeCursos.Models
         [StringLength(50)]
         public string Apellido { get; set; }
 
+        // Validación: Asegura que el formato sea un email real (ej: usuario@dominio.com)
         [Required]
         [EmailAddress(ErrorMessage = "Formato de correo inválido")]
         public string Email { get; set; }
