@@ -1,36 +1,49 @@
 ﻿@model GestiondeCursos.Models.Estudiante
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-info text-white py-3">
+                    <h5 class="mb-0">
+                        <i class="bi bi-person-lines-fill me-2"></i> Ficha del Estudiante
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <div class="d-inline-block rounded-circle bg-light text-info p-4 mb-2">
+                            <i class="bi bi-person display-1"></i>
+                        </div>
+                        <h3 class="fw-bold text-dark">@Model.Nombre @Model.Apellido</h3>
+                        <span class="badge bg-secondary">Estudiante Activo</span>
+                    </div>
 
-<div>
-    <h4>Estudiante</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Apellido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                    <hr class="text-muted" />
+
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-muted">Nombre:</dt>
+                        <dd class="col-sm-8 fw-bold">@Html.DisplayFor(model => model.Nombre)</dd>
+
+                        <dt class="col-sm-4 text-muted">Apellido:</dt>
+                        <dd class="col-sm-8 fw-bold">@Html.DisplayFor(model => model.Apellido)</dd>
+
+                        <dt class="col-sm-4 text-muted">Email:</dt>
+                        <dd class="col-sm-8">
+                            <a href="mailto:@Model.Email" class="text-decoration-none">
+                                @Html.DisplayFor(model => model.Email)
+                            </a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-white d-flex justify-content-end gap-2 py-3">
+                    <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-info text-white">Editar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

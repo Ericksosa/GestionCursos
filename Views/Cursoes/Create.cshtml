@@ -1,43 +1,53 @@
 ﻿@model GestiondeCursos.Models.Curso
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nuevo Curso";
 }
 
-<h1>Create</h1>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0">
+                        <i class="bi bi-journal-plus me-2"></i> Crear Curso
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
-<h4>Curso</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
+                        <div class="mb-3">
+                            <label asp-for="Titulo" class="form-label fw-bold text-muted">Título del Curso</label>
+                            <input asp-for="Titulo" class="form-control" placeholder="Ej: Introducción a la Programación" />
+                            <span asp-validation-for="Titulo" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Creditos" class="form-label fw-bold text-muted">Créditos Académicos</label>
+                            <input asp-for="Creditos" class="form-control" type="number" min="1" max="10" />
+                            <span asp-validation-for="Creditos" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Descripcion" class="form-label fw-bold text-muted">Descripción</label>
+                            <textarea asp-for="Descripcion" class="form-control" rows="3" placeholder="Breve resumen del contenido..."></textarea>
+                            <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Index" class="btn btn-light text-secondary me-md-2">Cancelar</a>
+                            <button type="submit" class="btn btn-primary px-4">Guardar Curso</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Creditos" class="control-label"></label>
-                <input asp-for="Creditos" class="form-control" />
-                <span asp-validation-for="Creditos" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

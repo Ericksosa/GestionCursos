@@ -1,47 +1,100 @@
 ﻿@model IEnumerable<GestiondeCursos.Models.Curso>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Catálogo de Cursos";
 }
 
-<h1>Index</h1>
+<div class="container-fluid px-4 mt-4">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creditos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creditos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Cursos Disponibles</h1>
+            <p class="text-muted small mb-0">Administración del plan de estudios.</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary shadow-sm rounded-pill px-4">
+            <i class="bi bi-journal-plus me-2"></i> Nuevo Curso
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3 border-bottom">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="bi bi-book me-2"></i> Listado de Asignaturas
+            </h6>
+        </div>
+
+        <div class="card-body p-0">
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <div class="mb-3">
+                        <i class="bi bi-journal-x text-muted display-4"></i>
+                    </div>
+                    <h4 class="text-muted">No hay cursos registrados</h4>
+                    <p class="text-muted small">Agrega el primer curso usando el botón superior.</p>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    @Html.DisplayNameFor(model => model.Titulo)
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    @Html.DisplayNameFor(model => model.Creditos)
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    @Html.DisplayNameFor(model => model.Descripcion)
+                                </th>
+                                <th class="text-end pe-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-light text-primary rounded p-2 me-3">
+                                                <i class="bi bi-journal-bookmark-fill"></i>
+                                            </div>
+                                            <span class="fw-bold text-dark">@Html.DisplayFor(modelItem => item.Titulo)</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-secondary rounded-pill">
+                                            @Html.DisplayFor(modelItem => item.Creditos) Créditos
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted text-truncate d-inline-block" style="max-width: 250px;">
+                                            @Html.DisplayFor(modelItem => item.Descripcion)
+                                        </span>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info" title="Detalles">
+                                                <i class="bi bi-info-circle"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,47 +1,103 @@
 ﻿@model IEnumerable<GestiondeCursos.Models.Estudiante>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Listado de Estudiantes";
 }
 
-<h1>Index</h1>
+<div class="container-fluid px-4 mt-4">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Apellido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Estudiantes</h1>
+            <p class="text-muted small mb-0">Gestión y directorio de alumnos matriculados.</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary shadow-sm rounded-pill px-4">
+            <i class="bi bi-person-plus-fill me-2"></i> Nuevo Estudiante
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3 border-bottom">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="bi bi-people me-2"></i> Directorio Oficial
+            </h6>
+        </div>
+
+        <div class="card-body p-0">
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <div class="mb-3">
+                        <i class="bi bi-person-x text-muted display-4"></i>
+                    </div>
+                    <h4 class="text-muted">No hay estudiantes registrados</h4>
+                    <p class="text-muted small">Comienza agregando uno nuevo con el botón superior.</p>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    @Html.DisplayNameFor(model => model.Apellido)
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Contacto
+                                </th>
+                                <th class="text-end pe-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-initials bg-light text-primary rounded-circle p-2 me-3 fw-bold">
+                                                @item.Nombre.Substring(0, 1)
+                                            </div>
+                                            <div>
+                                                <span class="fw-bold text-dark">@Html.DisplayFor(modelItem => item.Nombre)</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="text-dark">@Html.DisplayFor(modelItem => item.Apellido)</span>
+                                    </td>
+                                    <td>
+                                        <a href="mailto:@item.Email" class="text-decoration-none text-secondary">
+                                            <i class="bi bi-envelope me-1"></i> @Html.DisplayFor(modelItem => item.Email)
+                                        </a>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info" title="Ver Detalles">
+                                                <i class="bi bi-info-circle"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+        <div class="card-footer bg-white py-3">
+            <small class="text-muted">Total de registros: <strong>@Model.Count()</strong></small>
+        </div>
+    </div>
+</div>

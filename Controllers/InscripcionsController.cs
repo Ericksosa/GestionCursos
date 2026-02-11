@@ -49,8 +49,16 @@ namespace GestiondeCursos.Controllers
         // GET: Inscripcions/Create
         public IActionResult Create()
         {
-            ViewData["CursoId"] = new SelectList(_context.Curso, "Id", "Titulo");
-            ViewData["EstudianteId"] = new SelectList(_context.Estudiante, "Id", "Apellido");
+            // Buscamos los estudiantes y creamos un campo combinado "NombreCompleto"
+            var listaEstudiantes = _context.Estudiante
+                .Select(e => new {
+                    Id = e.Id,
+                    NombreCompleto = e.Nombre + " " + e.Apellido
+                });
+            ViewData["CursoId"] = new SelectList(_context.Curso, "Id", "Titulo");                   
+
+            // Ahora usamos "NombreCompleto" como el texto a mostrar
+            ViewData["EstudianteId"] = new SelectList(listaEstudiantes, "Id", "NombreCompleto");
             return View();
         }
 
